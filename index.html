@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños, Don Christian</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --cream:       #F4EFE4;
+  --olive:       #3D4535;
+  --olive-mid:   #5C6450;
+  --olive-light: #8A9478;
+  --sand:        #BFB395;
+  --sand-light:  #D8CFBA;
+  --ink:         #2E2E28;
+  --ink-light:   #4A4A42;
+  --tape:        rgba(190,178,148,.52);
+  --tape2:       rgba(210,195,160,.44);
+  --px:          22px;
+}
+
+html { scroll-behavior:smooth; }
+body { background:var(--cream); color:var(--ink); font-family:'Lora',Georgia,serif; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:.026;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:256px;
+}
+
+/* ── LIGHTBOX ── */
+#lb { display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,.92); align-items:center; justify-content:center; cursor:zoom-out; opacity:0; transition:opacity .22s ease; }
+#lb.open    { display:flex; }
+#lb.visible { opacity:1; }
+#lb-img { max-width:92vw; max-height:88vh; object-fit:contain; transform:scale(.94); transition:transform .26s cubic-bezier(.23,1,.32,1); box-shadow:0 8px 60px rgba(0,0,0,.5); }
+#lb.visible #lb-img { transform:scale(1); }
+#lb-close { position:fixed; top:1.1rem; right:1.3rem; background:none; border:none; cursor:pointer; color:rgba(255,255,255,.65); font-size:1.9rem; line-height:1; z-index:10001; transition:color .2s; }
+#lb-close:hover { color:#fff; }
+
+/* ── HEADER ── */
+header { display:flex; align-items:center; justify-content:space-between; padding:1rem var(--px); border-bottom:1px solid rgba(191,179,149,.32); position:sticky; top:0; background:rgba(244,239,228,.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); z-index:100; }
+.h-left  { font-family:'Jost',sans-serif; font-weight:300; font-size:.7rem; letter-spacing:.07em; color:var(--olive-light); }
+.h-right { font-family:'Jost',sans-serif; font-weight:300; font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:var(--olive-mid); }
+
+/* ── HERO ── */
+.hero { min-height:94vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:3.5rem var(--px); }
+.hero-label { font-family:'Jost',sans-serif; font-weight:300; font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--olive-light); opacity:0; transform:translateY(8px); animation:fadeUp .6s .3s ease forwards; }
+.hero-year  { margin-top:.45rem; font-family:'Jost',sans-serif; font-weight:300; font-size:.64rem; letter-spacing:.16em; color:var(--sand); opacity:0; animation:fadeUp .5s .5s ease forwards; }
+.hero-h1   { font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(3rem,12vw,6.5rem); color:var(--olive); line-height:1.05; margin-top:.95rem; opacity:0; transform:translateY(18px); animation:fadeUp 1s .6s ease forwards; }
+.hero-h1 em { font-style:italic; color:var(--olive-mid); }
+.hero-orn  { display:flex; align-items:center; gap:.9rem; margin-top:1rem; opacity:0; animation:fadeUp .6s .9s ease forwards; }
+.hero-orn-line { width:38px; height:1px; background:var(--sand); }
+.hero-orn-dot  { width:4px; height:4px; border-radius:50%; background:var(--sand); }
+.hero-sub  { margin-top:.9rem; font-family:'Lora',serif; font-size:.9rem; font-style:italic; color:var(--olive-mid); opacity:0; animation:fadeUp .7s 1.1s ease forwards; }
+.hero-scroll { margin-top:4rem; display:flex; flex-direction:column; align-items:center; gap:.45rem; opacity:0; animation:fadeUp .6s 1.5s ease forwards; }
+.hero-scroll span { font-family:'Jost',sans-serif; font-weight:300; font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--sand-light); }
+.scroll-line { width:1px; height:44px; background:linear-gradient(to bottom, var(--sand), transparent); animation:pulse 2s 2s infinite; }
+
+/* ── LETTER ── */
+.letter { max-width:660px; margin:0 auto; padding:0 var(--px); }
+.tb { margin:3.2rem 0; opacity:0; transform:translateY(18px); transition:opacity .75s ease, transform .75s ease; }
+.tb.on { opacity:1; transform:none; }
+.tb p { font-family:'Lora',serif; font-size:.98rem; font-weight:400; line-height:1.97; color:var(--ink-light); letter-spacing:.012em; }
+.tb p + p { margin-top:1.3rem; }
+.tb-intro p:first-child::first-letter { font-family:'Playfair Display',serif; font-weight:400; font-size:4em; float:left; line-height:.82; margin:.07em .11em -.04em 0; color:var(--olive); }
+.em-1, .em-2, .em-3, .em-4 { font-weight:500; font-style:italic; color:var(--ink); }
+.q { display:block; border-left:2px solid var(--olive-mid); padding:.6rem 1.3rem; margin:1.8rem 0 1.4rem; font-style:italic; font-size:.98rem; color:var(--ink); line-height:1.82; }
+
+/* ── CLUSTERS ── */
+.cluster { margin:4rem calc(-1 * var(--px)); opacity:0; transform:translateY(20px); transition:opacity .8s ease, transform .8s ease; }
+.cluster.on { opacity:1; transform:none; }
+.cluster-inner { display:flex; flex-direction:column; align-items:center; gap:1.8rem; padding:0 var(--px); }
+
+/* ── POLAROID ── */
+.pol {
+  background:#fff;
+  /* --pb se ajusta dinámicamente por JS según la altura del caption */
+  padding:8px 8px var(--pb,36px);
+  box-shadow:
+    2px 4px 12px rgba(0,0,0,.12),
+    6px 16px 38px rgba(0,0,0,.09),
+    10px 26px 60px rgba(61,69,53,.07);
+  width:100%; max-width:295px;
+  position:relative;
+  opacity:0;
+  transform:translateY(26px) rotate(calc(var(--r,0deg) + 7deg));
+  transition:opacity .65s ease, transform .66s cubic-bezier(.23,1,.32,1), box-shadow .3s ease;
+}
+.cluster.on .pol              { opacity:1; transform:rotate(var(--r,0deg)); }
+.cluster.on .pol:nth-child(1) { transition-delay:.05s; }
+.cluster.on .pol:nth-child(2) { transition-delay:.19s; }
+.cluster.on .pol:nth-child(3) { transition-delay:.33s; }
+.cluster.on .pol:nth-child(4) { transition-delay:.47s; }
+.cluster.on .pol:nth-child(5) { transition-delay:.61s; }
+
+.pol img { display:block; object-fit:cover; width:100%; aspect-ratio:var(--ar,4/3); cursor:zoom-in; }
+
+.pol-cap {
+  position:absolute; bottom:7px; left:0; right:0;
+  text-align:center;
+  font-family:'Lora', serif;
+  font-style:italic;
+  font-weight:400;
+  font-size:.72rem;
+  line-height:1.38;
+  letter-spacing:.01em;
+  color:var(--olive-mid);
+  padding:0 12px;
+  text-wrap:balance;
+}
+
+@media (hover:hover) {
+  .pol:hover {
+    box-shadow:3px 6px 16px rgba(0,0,0,.15), 8px 22px 50px rgba(0,0,0,.12), 14px 36px 80px rgba(61,69,53,.1) !important;
+    transform:rotate(var(--r,0deg)) scale(1.04) translateY(-5px) !important;
+    z-index:10;
+    transition:transform .28s cubic-bezier(.23,1,.32,1), box-shadow .28s ease !important;
+  }
+}
+
+/* tape */
+.t-top::before  { content:''; position:absolute; top:-9px;    left:50%;  transform:translateX(-50%); width:50px; height:16px; background:var(--tape);  border-radius:2px; }
+.t-tl::before   { content:''; position:absolute; top:-7px;    left:10px;  transform:rotate(-12deg);  width:30px; height:14px; background:var(--tape2); border-radius:2px; }
+.t-tr::after    { content:''; position:absolute; top:-7px;    right:10px; transform:rotate(12deg);   width:30px; height:14px; background:var(--tape);  border-radius:2px; }
+.t-side::before { content:''; position:absolute; top:18px;    left:-10px; transform:rotate(-5deg);   width:20px; height:46px; background:var(--tape2); border-radius:2px; }
+.t-br::after    { content:''; position:absolute; bottom:-7px; right:12px; transform:rotate(-8deg);   width:30px; height:14px; background:var(--tape);  border-radius:2px; }
+
+/* ── MOBILE ── */
+.ca .pol:nth-child(1) { --r:-2.5deg; align-self:flex-start; margin-left:2%;  max-width:275px; }
+.ca .pol:nth-child(2) { --r:2deg;    align-self:flex-end;   margin-right:2%; max-width:255px; margin-top:-28px; z-index:2; }
+.ca .pol:nth-child(3) { --r:-1.5deg; align-self:flex-start; margin-left:5%;  max-width:250px; margin-top:-24px; z-index:3; }
+.ca .pol:nth-child(4) { --r:1.8deg;  align-self:flex-end;   margin-right:5%; max-width:244px; margin-top:-26px; z-index:4; }
+.ca .pol:nth-child(5) { --r:-3deg;   align-self:center;     max-width:232px; margin-top:-22px; z-index:5; }
+
+.cb .pol:nth-child(1) { --r:1.5deg;  align-self:center;   max-width:268px; }
+.cb .pol:nth-child(2) { --r:-3.5deg; align-self:flex-end; margin-right:6%; max-width:205px; margin-top:-2.5rem; z-index:2; }
+
+.cc .pol:nth-child(1) { --r:-2deg;   align-self:flex-end;   margin-right:3%; max-width:185px; }
+.cc .pol:nth-child(2) { --r:3deg;    align-self:flex-start; margin-left:3%;  max-width:220px; margin-top:-28px; z-index:2; }
+.cc .pol:nth-child(3) { --r:-3.5deg; align-self:flex-end;   margin-right:3%; max-width:175px; margin-top:-24px; z-index:3; }
+.cc .pol:nth-child(4) { --r:1.5deg;  align-self:flex-start; margin-left:4%;  max-width:258px; margin-top:-22px; z-index:4; }
+.cc .pol:nth-child(5) { --r:-2.5deg; align-self:flex-end;   margin-right:4%; max-width:196px; margin-top:-20px; z-index:5; }
+
+.cd .pol:nth-child(1) { --r:-1deg;  align-self:center;     max-width:280px; }
+.cd .pol:nth-child(2) { --r:3.5deg; align-self:flex-end;   margin-right:5%; max-width:240px; margin-top:-2rem;   z-index:2; }
+.cd .pol:nth-child(3) { --r:2deg;   align-self:flex-start; margin-left:3%;  max-width:190px; margin-top:-1.5rem; z-index:3; }
+
+.cluster-final .pol { --r:-1deg; align-self:center; max-width:310px; }
+
+@media (max-width:420px) {
+  :root { --px:18px; }
+  .tb-intro p:first-child::first-letter { font-size:3.4em; }
+  .q { padding:.5rem 1rem; }
+  .hero-h1 { font-size:clamp(2.8rem,13vw,4rem); }
+  .closing-sig { font-size:1.55rem; }
+}
+
+/* ── DESKTOP ── */
+@media (min-width:700px) {
+  :root { --px:28px; }
+  .cluster { margin:5.5rem -7vw; }
+  .cluster-inner { position:relative; display:block; flex-direction:unset; align-items:unset; gap:unset; padding:0; }
+  .pol { position:absolute; width:auto; max-width:none; height:auto; align-self:unset !important; margin:0 !important; }
+  .pol img { height:auto; }
+
+  .ca .cluster-inner { min-height:468px; }
+  .ca .pol:nth-child(1) { width:255px; left:0%;  top:20px;  --r:-2.5deg; z-index:2; }
+  .ca .pol:nth-child(2) { width:212px; left:35%; top:0;     --r:2.2deg;  z-index:3; }
+  .ca .pol:nth-child(3) { width:196px; left:64%; top:72px;  --r:-1.8deg; z-index:1; }
+  .ca .pol:nth-child(4) { width:220px; left:9%;  top:262px; --r:1.6deg;  z-index:4; }
+  .ca .pol:nth-child(5) { width:190px; left:55%; top:280px; --r:-3.2deg; z-index:3; }
+
+  .cb .cluster-inner { min-height:380px; }
+  .cb .pol:nth-child(1) { width:196px; left:50%; top:18px; --r:1.5deg;  z-index:1; transform:translateX(-55%) rotate(1.5deg); max-width:none; }
+  .cb .pol:nth-child(2) { width:162px; left:67%; top:0;    --r:-3.5deg; z-index:3; max-width:none; }
+
+  .cc .cluster-inner { min-height:534px; }
+  .cc .pol:nth-child(1) { width:138px; left:2%;  top:10px;  --r:-2deg;   z-index:2; max-width:none; }
+  .cc .pol:nth-child(2) { width:186px; left:34%; top:48px;  --r:3deg;    z-index:1; max-width:none; }
+  .cc .pol:nth-child(3) { width:130px; left:69%; top:6px;   --r:-3.5deg; z-index:3; max-width:none; }
+  .cc .pol:nth-child(4) { width:228px; left:4%;  top:283px; --r:1.5deg;  z-index:4; max-width:none; }
+  .cc .pol:nth-child(5) { width:168px; left:62%; top:275px; --r:-2.5deg; z-index:3; max-width:none; }
+
+  .cd .cluster-inner { min-height:398px; }
+  .cd .pol:nth-child(1) { width:192px; left:1%;  top:14px;  --r:-1deg;   z-index:1; max-width:none; }
+  .cd .pol:nth-child(2) { width:240px; left:43%; top:112px; --r:3.5deg;  z-index:2; max-width:none; }
+  .cd .pol:nth-child(3) { width:148px; left:74%; top:22px;  --r:2.5deg;  z-index:3; max-width:none; }
+
+  .cluster-final .cluster-inner { position:static !important; display:flex !important; justify-content:center; align-items:flex-start; min-height:0; padding:0 var(--px); }
+  .cluster-final .pol { position:relative !important; width:310px; max-width:310px; align-self:auto !important; margin:0 !important; }
+
+  .cluster.on .pol { transform:rotate(var(--r)); }
+  .cb.cluster.on .pol:nth-child(1) { transform:translateX(-55%) rotate(1.5deg); }
+
+  @media (hover:hover) {
+    .cb .cluster-inner .pol:nth-child(1):hover { transform:translateX(-55%) rotate(1.5deg) scale(1.04) translateY(-5px) !important; }
+  }
+}
+
+/* ── DIVIDER ── */
+.div-line { display:flex; align-items:center; gap:1.3rem; margin:2.6rem 0; opacity:0; transition:opacity .6s ease; }
+.div-line.on { opacity:1; }
+.dl  { flex:1; height:1px; background:linear-gradient(to right, transparent, var(--sand), transparent); }
+.di  { font-family:'Jost',sans-serif; font-weight:300; font-size:.61rem; letter-spacing:.26em; text-transform:uppercase; color:var(--sand); white-space:nowrap; }
+.dlo { color:var(--sand-light); margin:0 .35rem; font-style:normal; }
+
+/* ── CLOSING ── */
+.closing { text-align:right; padding:4rem 0 3rem; opacity:0; transform:translateY(12px); transition:opacity .75s ease, transform .75s ease; }
+.closing.on { opacity:1; transform:none; }
+.closing-sig  { font-family:'Playfair Display',serif; font-weight:400; font-size:1.85rem; font-style:italic; color:var(--olive); line-height:1.35; }
+.closing-city { font-family:'Jost',sans-serif; font-weight:300; font-size:.68rem; letter-spacing:.14em; color:var(--olive-light); margin-top:.6rem; }
+
+/* ── FOOTER ── */
+footer { margin-top:5rem; }
+.footer-sep { width:100%; height:1px; background:linear-gradient(to right, transparent, var(--sand), transparent); margin-bottom:3rem; opacity:0; transition:opacity .7s ease; }
+.footer-sep.on { opacity:1; }
+.footer-content { text-align:center; padding:0 var(--px) 6rem; opacity:0; transform:translateY(14px); transition:opacity .7s .1s ease, transform .7s .1s ease; }
+.footer-content.on { opacity:1; transform:none; }
+.footer-eyebrow { font-family:'Jost',sans-serif; font-weight:300; font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; color:var(--olive-light); margin-bottom:1.8rem; }
+.footer-main { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,6vw,2.8rem); font-style:italic; font-weight:400; color:var(--olive); line-height:1.3; }
+.footer-main em { font-style:normal; }
+.footer-sub { margin-top:1.3rem; font-family:'Lora',serif; font-size:.92rem; font-style:italic; color:var(--olive-mid); }
+.footer-dot { margin:2.5rem auto 0; width:4px; height:4px; border-radius:50%; background:var(--sand-light); }
+
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+@keyframes pulse { 0%,100% { opacity:.4; transform:scaleY(1); } 50% { opacity:.9; transform:scaleY(1.15); } }
+</style>
+</head>
+<body>
+
+<div id="lb" aria-hidden="true">
+  <button id="lb-close" aria-label="Cerrar foto">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<header>
+  <span class="h-left">2 de junio · 2026</span>
+  <span class="h-right">Para Don Christian</span>
+</header>
+
+<section class="hero">
+  <span class="hero-label">una carta desde Barcelona</span>
+  <p class="hero-year">2026</p>
+  <h1 class="hero-h1">Feliz<br>cumpleaños,<br><em>papá</em></h1>
+  <div class="hero-orn"><span class="hero-orn-line"></span><span class="hero-orn-dot"></span><span class="hero-orn-line"></span></div>
+  <p class="hero-sub">con todo el cariño del mundo, desde lejos.</p>
+  <div class="hero-scroll"><span>seguir leyendo</span><div class="scroll-line"></div></div>
+</section>
+
+<div class="letter">
+
+  <div class="tb tb-intro">
+    <p>Papá. Son las diez de la noche y estoy sentado en mi pieza en Barcelona. Hay ruido de calle por la ventana, ese ruido de siempre: autos, gente, el murmullo que ya me es algo familiar pero que todavía no siento del todo mío. Y por alguna razón, pensé en ti, tu cumpleaños es en una semana y creo que es un buen momento de contarte algunas cosas. O en verdad, me di cuenta de que había cosas que quería decirte desde hace mucho tiempo, cosas que no caben en una llamada, que necesitan más espacio y más calma. Así que acá estoy. Con tiempo, sin apuro, con ganas de decirte algo de verdad.</p>
+    <p>Hoy es tu cumpleaños. Y creo que era hora.</p>
+  </div>
+
+  <div class="cluster ca">
+    <div class="cluster-inner">
+      <div class="pol t-tl t-tr" style="--ar:4/3">
+        <img src="fotos/primer-dia-clases-2007.jpg" alt="Primer día de clases, 2007" loading="lazy">
+        <span class="pol-cap">no sabes cuanto los extraño</span>
+      </div>
+      <div class="pol t-top" style="--ar:4/3">
+        <img src="fotos/papa-abrazo-lago-infancia.jpg" alt="Abrazo junto al lago" loading="lazy">
+      </div>
+      <div class="pol t-side" style="--ar:4/3">
+        <img src="fotos/papa-abrazo-agustin-batman.jpg" alt="Con la capa Batman" loading="lazy">
+        <span class="pol-cap">gracias por la tremenda infancia que me dieron</span>
+      </div>
+      <div class="pol t-tl" style="--ar:4/3">
+        <img src="fotos/papa-agustin-hotel-escalones.jpg" alt="En los escalones del hotel" loading="lazy">
+      </div>
+      <div class="pol t-tr" style="--ar:4/3">
+        <img src="fotos/papa-agustin-puerta-madera.jpg" alt="Frente a la puerta de madera" loading="lazy">
+        <span class="pol-cap">una clásica</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tb">
+    <p><span class="em-1">Eres mi ídolo, papá.</span> No lo digo para llenarte de halagos en tu día. Lo digo en el sentido más concreto y real que tiene esa palabra: eres la persona a la que miro cuando no sé cómo actuar. Cuando tengo miedo. Cuando hay algo difícil por delante y no tengo claro si voy a poder. En esos momentos me pregunto qué harías tú, cómo lo enfrentarías, y eso me ordena. No lo decido conscientemente, no lo planeo. Solo pasa. Te busco como referencia antes de muchas cosas sin que tú lo sepas, y ese reflejo dice todo sobre el tipo de persona que eres.</p>
+    <p>Hago lo posible por parecerme a ti. Eso tampoco es un cumplido vacío o algo que uno dice por costumbre. Es algo que me propongo en serio, que me sirve de brújula cuando el camino no está muy claro, cuando no sé qué hacer o cómo hacer las cosas. Me parece que nunca te lo había dicho tan directo. Ya tocaba.</p>
+  </div>
+
+  <div class="div-line">
+    <div class="dl"></div>
+    <span class="di"><em class="dlo">✦</em>lo que me enseñaste<em class="dlo">✦</em></span>
+    <div class="dl"></div>
+  </div>
+
+  <div class="tb">
+    <p>Hay frases tuyas que viven permanentemente en mi cabeza. La que más aparece, la que más repito, es esa de nunca decir no puedo. Parece algo simple cuando la escuchas. No lo es. Es una forma de ver el mundo completa. Es decidir no cerrarse antes de intentar, no dejarle espacio al miedo antes de tiempo, no rendirse sin haber pisado ni siquiera la cancha. Y yo la repito, casi sin darme cuenta, en situaciones muy distintas. En la universidad, en el intercambio, en cosas chicas de todos los días. Ya no sé si es tuya o mía, de tanto que la hice propia.</p>
+    <p>Y después está lo de dibujar sin goma. Eso me marcó de una manera que todavía no termino de entender muy bien. Porque no es una enseñanza sobre dibujar, es sobre comprometerse con lo que uno hace. Es sobre asumir las decisiones, seguir aunque algo salga mal, no volver para atrás por miedo o inseguridad. La vida no tiene goma, y tú me lo enseñaste antes de que yo supiera que lo necesitaba. Cada vez que el instinto me dice borrar todo y empezar de cero, me acuerdo de eso. Y sigo. Con solo esas dos cosas ya me diste más de lo que mucha gente da en toda una vida.</p>
+  </div>
+
+  <div class="cluster cb">
+    <div class="cluster-inner">
+      <div class="pol t-top" style="--ar:3/4">
+        <img src="fotos/papa-entrenando-futbol.jpg" alt="Papá entrenando en fútbol" loading="lazy">
+        <span class="pol-cap">que bueno que yo ya pasé esa etapa jajajaj</span>
+      </div>
+      <div class="pol t-tl" style="--ar:3/4">
+        <img src="fotos/papa-sostiene-agustin-jardin.jpg" alt="Papá sosteniendo a Agustín" loading="lazy">
+        <span class="pol-cap">esta foto me da mucha paz</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tb">
+    <p>Hay algo que admiro mucho de ti y que creo no te he dicho lo suficiente: tu mentalidad. La manera en que enfrentas el error, el riesgo, el esfuerzo. Siempre me animaste a probar sin miedo, a no paralizarme si algo podía salir mal, a entender que equivocarse es parte del proceso y no el final del camino. Eso lo aprendí viéndote a ti, mucho antes de entenderlo como concepto, mucho antes de poder ponerlo en palabras.</p>
+    <p>Esa energía de que <span class="em-3">se puede</span>, de que hay que insistir, de que las cosas buenas llegan con esfuerzo de verdad y no de casualidad. Cuando algo me pesa, cuando siento ganas de soltar, pienso en cómo lo enfrentarías tú. Y eso me mueve. Siempre lo hace.</p>
+    <p>Y después está todo lo que haces por nosotros. El esfuerzo que le pones a la familia, a que estemos bien, a que nada falte. Eso se nota, papá. No siempre se dice, pero se nota, y yo lo veo y lo agradezco mucho más de lo que expreso. Lo mismo con la Munch. La manera en que la cuidas, en que la amas, me enseña algo sobre cómo se ve un amor que se elige todos los días, que no se gasta con el tiempo, que no se da por sentado. Es algo que cargo conmigo sin haberlo pedido.</p>
+  </div>
+
+  <div class="cluster cc">
+    <div class="cluster-inner">
+      <div class="pol t-side" style="--ar:9/16">
+        <img src="fotos/papa-hospital-cuernos.jpg" alt="Papá en el hospital" loading="lazy">
+        <span class="pol-cap">una de tus cuantas alaraqueadas</span>
+      </div>
+      <div class="pol t-top" style="--ar:3/4">
+        <img src="fotos/papa-mama-palacio-real-madrid.jpg" alt="Papá y mamá en el Palacio Real de Madrid" loading="lazy">
+        <span class="pol-cap">gracias por enseñarme a amar aunque a veces cueste jajaja</span>
+      </div>
+      <div class="pol t-tl t-tr" style="--ar:9/16">
+        <img src="fotos/papa-silla-ruedas-rock.jpg" alt="Papá haciendo rock" loading="lazy">
+        <span class="pol-cap">mi foto favorita</span>
+      </div>
+      <div class="pol t-top" style="--ar:4/3">
+        <img src="fotos/papa-con-labrador-jardin.jpg" alt="Papá en el jardín con el labrador" loading="lazy">
+        <span class="pol-cap">:,)</span>
+      </div>
+      <div class="pol t-tl" style="--ar:3/4">
+        <img src="fotos/papa-pose-camioneta.jpg" alt="Papá posando con la camioneta" loading="lazy">
+        <span class="pol-cap">gracias por siempre ser tú</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="div-line">
+    <div class="dl"></div>
+    <span class="di"><em class="dlo">✦</em>el intercambio<em class="dlo">✦</em></span>
+    <div class="dl"></div>
+  </div>
+
+  <div class="tb">
+    <p>Venir a Barcelona fue una de las cosas más importantes que me han pasado. Y fue posible, en gran parte, gracias a ti.</p>
+    <p>Hubo un momento, cuando la fecha se acercaba y el miedo le empezaba a ganar a la emoción, en que dudé de verdad. Una parte de mí quería quedarse, no complicarse, no saltar al vacío. Y tú estuviste ahí para darme ese empujoncito más que necesario. Para acordarme que era algo que yo quería, que me lo había ganado, que iba a poder. Que había que ir. Todavía no sé si entiendes cuánto pesó eso en ese momento, pero de verdad que lo valoré mucho.</p>
+    <blockquote class="q">Gracias por haberme incentivado a cumplir este sueño. Por haber creído en mí cuando yo mismo tenía dudas. Ese empuje tuyo me permitió vivir algo que me cambió de formas que todavía estoy entendiendo.</blockquote>
+  </div>
+
+  <div class="tb">
+    <p>Y acá, en el intercambio, también me pasaron cosas que no esperaba. Hubo un período donde no estuve bien. La ansiedad apareció de una manera que no conocía, el insomnio también. Llegaron de sorpresa, en un momento en que estaba solo y lejos de todo lo conocido. En ese momento, sin pensarlo mucho, te llamé a ti.</p>
+    <p>Lo que hiciste en esas semanas fue enorme. Mucho más de lo que creo que te di a entender entonces. Me ayudaste a literal no hundirme, a encontrar un poco de perspectiva, a no hacer más grande lo que ya se sentía grande. A seguir. Esas conversaciones me sostuvieron de verdad, y estoy muy agradecido por eso. De que seas el papá que eres, del vínculo que tenemos, de que pueda apoyarme en ti con tanta facilidad.</p>
+    <p>Estar lejos me hizo ver algo que antes no veía tan claro: <span class="em-4">eres mi pilar</span>. No solo para las cosas grandes. Para todo. Siempre estuvo ahí, pero desde acá, lejos, se me hizo más evidente que nunca.</p>
+  </div>
+
+  <div class="cluster cd">
+    <div class="cluster-inner">
+      <div class="pol t-top" style="--ar:3/4">
+        <img src="fotos/papa-agustin-chelita-el-scoto.jpg" alt="La chelita de siempre" loading="lazy">
+        <span class="pol-cap">lo que extraño esas piscolitas</span>
+      </div>
+      <div class="pol t-tl" style="--ar:4/3">
+        <img src="fotos/familia-completa-bebe.jpg" alt="Los que siempre estarán" loading="lazy">
+      </div>
+      <div class="pol t-br" style="--ar:9/16">
+        <img src="fotos/papa-con-munch-noche.jpg" alt="Con la Munch" loading="lazy">
+        <span class="pol-cap">que dupla...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tb">
+    <p>Para este año te deseo algo específico: que te preguntes qué es lo que te gusta. No en lo laboral, no como papá, sino tú solo. Qué disfrutas. Qué te conecta y recarga. Qué harías si tuvieras una tarde libre sin que nadie te necesite. Y que lo hagas.</p>
+    <p>Si es el patio y las plantas, que te des esos momentos de verdad. Que los planifiques, que los cuides, que los disfrutes con calma. Sin culpa, sin apuro. Te lo mereces, papá, y creo que a veces uno se olvida muy fácil de esos momentos para uno, en el medio de tanto.</p>
+  </div>
+
+  <div class="tb">
+    <p>Vuelvo en agosto. Y tengo muchas ganas de esa chelita con la chorrillana de siempre, de ponernos al día cara a cara, de contarte todo lo que hay en el medio de las llamadas. Esas cosas que no caben en diez minutos pero que importan. Y de escucharte a ti también, hay cosas tuyas que quiero saber y que en las llamadas cortas se quedan sin decirse.</p>
+    <p>Gracias por todo, papá. Por el esfuerzo constante, por la mentalidad, por el ejemplo de todos los días, por el apoyo, por amar a la Munch como la amas, por ser quien eres.</p>
+    <blockquote class="q">Te amo mucho. Más de lo que te digo, más de lo que muestro, y desde acá, lejos, lo entiendo más que nunca.</blockquote>
+  </div>
+
+  <div class="cluster cluster-final">
+    <div class="cluster-inner">
+      <div class="pol t-top" style="--ar:4/3">
+        <img src="fotos/papa-familia-tarde.jpg" alt="La familia" loading="lazy">
+        <span class="pol-cap">siempre los 4</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing">
+    <div class="closing-sig">Con todo el cariño del mundo,<br><em>Agustín.</em></div>
+    <div class="closing-city">Barcelona, 2 de junio de 2026</div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-sep"></div>
+  <div class="footer-content">
+    <p class="footer-eyebrow">te extraño mucho</p>
+    <p class="footer-main">Te amo mucho,<br><em>papito.</em></p>
+    <p class="footer-sub">feliz cumpleaños, Don Christian.</p>
+    <div class="footer-dot"></div>
+  </div>
+</footer>
+
+<script>
+/* ── Lightbox ── */
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img'),lbClose=document.getElementById('lb-close');
+document.querySelectorAll('.pol img').forEach(img=>{
+  img.addEventListener('click',e=>{
+    lbImg.src=img.src; lbImg.alt=img.alt;
+    lb.classList.add('open'); lb.getBoundingClientRect(); lb.classList.add('visible');
+    lb.removeAttribute('aria-hidden'); document.body.style.overflow='hidden';
+    e.stopPropagation();
+  });
+});
+lb.addEventListener('click',closeLb);
+lbClose.addEventListener('click',e=>{e.stopPropagation();closeLb();});
+document.addEventListener('keydown',e=>e.key==='Escape'&&closeLb());
+function closeLb(){lb.classList.remove('visible');setTimeout(()=>{lb.classList.remove('open');lbImg.src='';},220);lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+
+/* ── Ajuste dinámico de espacio inferior en Polaroids con caption ──
+   Después de que las fuentes cargan, mide la altura real de cada caption
+   y ajusta el padding-bottom del Polaroid para que quepa perfecto. ── */
+function fitCaptions(){
+  document.querySelectorAll('.pol').forEach(pol=>{
+    const cap=pol.querySelector('.pol-cap');
+    if(!cap) return;
+    // Reset para medir desde cero
+    pol.style.removeProperty('--pb');
+    const capH=cap.scrollHeight;
+    // capH + 7px (gap inferior) + 8px (margen superior mínimo sobre la foto)
+    const needed=capH+7+8;
+    if(needed>36){
+      pol.style.setProperty('--pb', needed+'px');
+    }
+  });
+}
+
+// Ejecutar cuando las fuentes están listas (mide correctamente el texto)
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(()=>{
+    fitCaptions();
+    // Volver a ajustar si cambia el tamaño de pantalla (cambian los saltos de línea)
+    let t;
+    window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(fitCaptions,160);});
+  });
+} else {
+  window.addEventListener('load', fitCaptions);
+}
+
+/* ── Animación en primer scroll ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});
+},{threshold:0.1,rootMargin:'0px 0px -80px 0px'});
+document.querySelectorAll('.tb,.cluster,.div-line,.closing,.footer-sep,.footer-content').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
