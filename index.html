@@ -24,10 +24,24 @@
 
 html {
   scroll-behavior:smooth;
-  /* El fondo del html cubre el área del notch/safe-area en iOS */
   background: var(--cream);
 }
 body { background:var(--cream); color:var(--ink); font-family:'Lora',Georgia,serif; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+
+/* ── TAPA NOTCH / DYNAMIC ISLAND ──
+   Elemento fixed que siempre cubre la zona entre el borde físico
+   de la pantalla y el inicio del header (Dynamic Island, notch, etc.)
+   Con z-index altísimo para que nunca se filtre nada detrás. ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  /* env(safe-area-inset-top) = altura exacta del notch/Dynamic Island */
+  height: env(safe-area-inset-top, 0px);
+  background: var(--cream);
+  z-index: 99999;
+  pointer-events: none;
+}
 
 body::after {
   content:''; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:.026;
